@@ -8,6 +8,8 @@
 .idea
 .DS_Store
 
+config.yaml
 runtime
+tmp
 logs
 go.sum
