@@ -16,7 +16,8 @@ var (
 	conf    config.Logger
 )
 
-func New(conf config.Logger) (logger *zap.Logger, err error) {
+func New(LoggerConf config.Logger) (logger *zap.Logger, err error) {
+	conf = LoggerConf
 
 	rootDir, _ := tool.GetRootDir()
 	logDir := rootDir + conf.FilePath
@@ -81,7 +82,7 @@ func genConfig() (config zap.Config) {
 	config = zap.NewProductionConfig()
 
 	config.EncoderConfig = genEncodeConfig()
-	config.Level = zap.NewAtomicLevelAt(getLevel())
+	config.Level = zap.NewAtomicLevelAt(GetLevel())
 
 	return
 

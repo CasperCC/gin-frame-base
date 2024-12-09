@@ -1,8 +1,8 @@
 package bootstrap
 
 import (
+	"gin-frame-base/internal/cache/redis"
 	"gin-frame-base/internal/config"
-	"gin-frame-base/internal/database/mysql"
 	"gin-frame-base/internal/global"
 	"gin-frame-base/internal/logger"
 )
@@ -18,5 +18,7 @@ func init() {
 		return
 	}
 
-	global.Db = mysql.GetConnection()
+	global.Db = InitDBGorm()
+	global.Redis = redis.InitializeRedis()
+	global.Logger.Info("server start!")
 }

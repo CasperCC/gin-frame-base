@@ -9,6 +9,7 @@ import (
 type Config struct {
 	App      App
 	Database Database
+	Redis    Redis
 	Logger   Logger
 }
 

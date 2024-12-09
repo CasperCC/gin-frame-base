@@ -62,7 +62,7 @@ func getGormLogger() gormLogger.Interface {
 		gormLogger.Config{
 			SlowThreshold: time.Second,                                 // 慢查询阈值
 			LogLevel:      ConvertZapLevelToGormLevel(gLogger.Level()), // Gorm 日志级别
-			Colorful:      true,                                        // 禁用彩色日志
+			Colorful:      false,                                       // 禁用彩色日志
 		},
 	)
 }
