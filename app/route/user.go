@@ -1,20 +1,16 @@
 package route
 
 import (
-	"fmt"
-	"gin-frame-base/app/model"
-	"gin-frame-base/internal/global"
+	"gin-frame-base/app/api"
+	"gin-frame-base/app/middleware"
 	"github.com/gin-gonic/gin"
 )
 
 func genUserRouter(r *gin.RouterGroup) {
+	r.Use(middleware.CorsMiddleware)
+
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{"message": "user-pong"})
 	})
-	r.GET("/test", func(c *gin.Context) {
-		var user model.User
-		global.Db.First(&user)
-		fmt.Println(user)
-		c.JSON(200, gin.H{"data": user})
-	})
+	r.GET("/test", api.UserApi.GetUserDetail)
 }

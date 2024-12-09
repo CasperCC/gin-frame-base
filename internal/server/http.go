@@ -3,6 +3,7 @@ package server
 import (
 	"context"
 	"fmt"
+	"gin-frame-base/internal/global"
 	"gin-frame-base/internal/server/route"
 	"github.com/gin-gonic/gin"
 	"log"
@@ -20,9 +21,10 @@ type Http struct {
 
 // New 实例化http对象
 func New() *Http {
+	port := global.Config.App.Port
 	entity := &Http{
 		engine: gin.New(),
-		port:   ":8081",
+		port:   ":" + port,
 	}
 
 	return entity

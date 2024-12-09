@@ -11,3 +11,16 @@ database:
   username: root
   password: 12345
   charset: utf8mb4 # 编码格式
+  log_file_name: "sql-{date}.log"
+  log_mode: info
+  err_log_file_name: "sqlerr-{date}.log"
+  err_log_mode: error
+
+logger:
+  level: debug # 日志级别
+  file_path: "/runtime/logs/" # 日志存放路径
+  file_name: "app-{date}.log" # 日志文件名称
+  max_size: 10 # 以M为单位对日志进行切割
+  max_age: 30 # 保留旧文件最大天数
+  max_backups: 5 # 保留旧文件最大份数
+  compress: true # 是否压缩归档文件
