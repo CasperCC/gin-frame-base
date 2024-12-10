@@ -1,7 +1,5 @@
 package model
 
-import "strconv"
-
 type User struct {
 	ID
 	Nickname     string `json:"nickname" gorm:"column:nickname;type:varchar(255);"`
@@ -12,6 +10,6 @@ type User struct {
 	SoftDelete
 }
 
-func (u *User) GetUid() string {
-	return strconv.Itoa(int(u.ID.ID))
+func (u *User) GetUser() *User {
+	return u
 }

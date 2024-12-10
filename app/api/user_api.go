@@ -15,7 +15,11 @@ func NewUserApi(userService service.UserService) *UserApi {
 	return &UserApi{userService}
 }
 
-// GetUserDetail 获取用户详情
+// GetUserDetail
+// 获取用户详情
+//
+//	@receiver a
+//	@param c
 func (a *UserApi) GetUserDetail(c *gin.Context) {
 	var request user_request.GetUserDetail
 	if err := c.ShouldBind(&request); err != nil {
@@ -31,6 +35,11 @@ func (a *UserApi) GetUserDetail(c *gin.Context) {
 	return
 }
 
+// Login
+// 登录接口
+//
+//	@receiver a
+//	@param c
 func (a *UserApi) Login(c *gin.Context) {
 	var request user_request.Login
 	if err := c.ShouldBind(&request); err != nil {
@@ -38,7 +47,7 @@ func (a *UserApi) Login(c *gin.Context) {
 		return
 	}
 	jwtToken, err := a.userService.Login(request)
-	if err != nil {
+	if err != nil || jwtToken == nil {
 		response.Error(c, response.CODE_LOGIN_FAILED, response.MSG_LOGIN_FAILED)
 		return
 	}

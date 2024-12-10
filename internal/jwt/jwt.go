@@ -1,18 +1,19 @@
 package jwt
 
 import (
-	"fmt"
+	"gin-frame-base/app/model"
 	"gin-frame-base/internal/global"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v5"
+	"strconv"
 	"time"
 )
 
 type User interface {
-	GetUid() string
+	GetUser() *model.User
 }
 
 type CustomerClaims struct {
-	jwt.StandardClaims
+	jwt.RegisteredClaims
 }
 
 const TokenType = "bearer"
@@ -24,25 +25,27 @@ type TokenOutPut struct {
 }
 
 func GenerateToken(user User) (tokenOutPut *TokenOutPut, token *jwt.Token, err error) {
-	currentTimestamp := time.Now().Unix()
-	token = jwt.NewWithClaims(
-		jwt.SigningMethodES256,
-		CustomerClaims{
-			StandardClaims: jwt.StandardClaims{
-				ExpiresAt: time.Now().Unix() + global.Config.Jwt.Ttl,
-				Id:        user.GetUid(),
-				Issuer:    global.Config.App.Name,
-				NotBefore: currentTimestamp - 1000,
-			},
+	currentTimestamp := time.Now()
+	claims := CustomerClaims{
+		jwt.RegisteredClaims{
+			Issuer:    global.Config.App.Name,
+			Subject:   user.GetUser().Nickname,
+			ExpiresAt: jwt.NewNumericDate(currentTimestamp.Add(time.Duration(global.Config.Jwt.Ttl) * time.Second)),
+			NotBefore: jwt.NewNumericDate(currentTimestamp.Add(-1000 * time.Second)),
+			IssuedAt:  jwt.NewNumericDate(currentTimestamp.Add(-1000 * time.Second)),
+			ID:        strconv.Itoa(int(user.GetUser().ID.ID)),
 		},
+	}
+	token = jwt.NewWithClaims(
+		jwt.SigningMethodHS256,
+		claims,
 	)
-	fmt.Println(global.Config.Jwt.Secret)
 
 	tokenStr, err := token.SignedString([]byte(global.Config.Jwt.Secret))
 
 	tokenOutPut = &TokenOutPut{
 		AccessToken: tokenStr,
-		ExpiresIn:   int(currentTimestamp + global.Config.Jwt.Ttl),
+		ExpiresIn:   int(currentTimestamp.Unix() + global.Config.Jwt.Ttl),
 		TokenType:   TokenType,
 	}
 	return
