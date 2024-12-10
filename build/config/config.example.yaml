@@ -17,7 +17,7 @@ database:
 redis:
   host: 127.0.0.1
   port: 6379
-  username: root
+  username:
   password: 123456
   db: 1
 
@@ -29,3 +29,7 @@ logger:
   max_age: 30 # 保留旧文件最大天数
   max_backups: 5 # 保留旧文件最大份数
   compress: true # 是否压缩归档文件
+
+jwt:
+  secret: "" # JWT 密钥
+  ttl: 7200 # JWT 过期时间

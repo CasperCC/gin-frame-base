@@ -7,21 +7,40 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type userApi struct{}
+type UserApi struct {
+	userService service.UserService
+}
+
+func NewUserApi(userService service.UserService) *UserApi {
+	return &UserApi{userService}
+}
 
 // GetUserDetail 获取用户详情
-func (*userApi) GetUserDetail(c *gin.Context) {
-	//user := model.User{BaseModel: model.BaseModel{ID: 1}}
+func (a *UserApi) GetUserDetail(c *gin.Context) {
 	var request user_request.GetUserDetail
 	if err := c.ShouldBind(&request); err != nil {
 		response.Error(c, response.CODE_MISSING_PARAMS, response.MSG_MISSING_PARAMS)
 		return
 	}
-	detail, err := service.UserService.GetUserById(request.ID)
+	detail, err := a.userService.GetUserById(request.ID)
 	if nil != err {
 		response.Error(c, response.CODE_DB_ERROR, err.Error())
 		return
 	}
 	response.Success(c, detail)
 	return
+}
+
+func (a *UserApi) Login(c *gin.Context) {
+	var request user_request.Login
+	if err := c.ShouldBind(&request); err != nil {
+		response.Error(c, response.CODE_MISSING_PARAMS, response.MSG_MISSING_PARAMS)
+		return
+	}
+	jwtToken, err := a.userService.Login(request)
+	if err != nil {
+		response.Error(c, response.CODE_LOGIN_FAILED, response.MSG_LOGIN_FAILED)
+		return
+	}
+	response.Success(c, jwtToken)
 }

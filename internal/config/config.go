@@ -11,6 +11,7 @@ type Config struct {
 	Database Database
 	Redis    Redis
 	Logger   Logger
+	Jwt      Jwt
 }
 
 // GetConfig 读取配置文件
