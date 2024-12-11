@@ -33,3 +33,5 @@ logger:
 jwt:
   secret: "" # JWT 密钥
   ttl: 7200 # JWT 过期时间
+  black_list_grace_period: 1000 # 黑名单宽限时间
+  refresh_grace_period: 600 # 自动续签时间
