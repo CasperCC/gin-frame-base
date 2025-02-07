@@ -16,3 +16,12 @@ func InitializeUserApi() *UserApi {
 	)
 	return &UserApi{}
 }
+
+func InitializeFileApi() *FileApi {
+	wire.Build(
+		dao.NewFileDao,
+		service.NewFileService,
+		NewFileApi,
+	)
+	return &FileApi{}
+}

@@ -7,11 +7,12 @@ import (
 )
 
 type Config struct {
-	App      App
-	Database Database
-	Redis    Redis
-	Logger   Logger
-	Jwt      Jwt
+	App        App
+	Database   Database
+	Redis      Redis
+	Logger     Logger
+	Jwt        Jwt
+	FileSystem FileSystem `mapstructure:"file_system"`
 }
 
 // GetConfig 读取配置文件

@@ -20,5 +20,6 @@ func init() {
 
 	global.Db = InitDBGorm()
 	global.Redis = redis.InitializeRedis()
+	InitFileSystem()
 	global.Logger.Info("server start!")
 }

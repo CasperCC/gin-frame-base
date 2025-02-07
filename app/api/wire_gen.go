@@ -19,3 +19,10 @@ func InitializeUserApi() *UserApi {
 	userApi := NewUserApi(userService)
 	return userApi
 }
+
+func InitializeFileApi() *FileApi {
+	fileDao := dao.NewFileDao()
+	fileService := service.NewFileService(fileDao)
+	fileApi := NewFileApi(fileService)
+	return fileApi
+}

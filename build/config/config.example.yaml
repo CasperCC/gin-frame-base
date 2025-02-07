@@ -35,3 +35,12 @@ jwt:
   ttl: 7200 # JWT 过期时间
   black_list_grace_period: 1000 # 黑名单宽限时间
   refresh_grace_period: 600 # 自动续签时间
+
+file_system:
+  driver: cos
+  region:  # 地域
+  secret_id:  # Access Key ID
+  secret_key:  # Access Key Secret
+  bucket_name:  # 存储桶名
+  endpoint:  # COS 接入点
+  prefix: # key前缀
