@@ -8,6 +8,7 @@ func (*AppRouter) AddRoute(e *gin.Engine) {
 	genTestRouter(e.Group("/test"))
 	genAdminRouter(e.Group("/admin"))
 	genUserRouter(e.Group("/user"))
+	genFileRouter(e.Group("/file"))
 }
 
 func New() *AppRouter {

@@ -3,7 +3,7 @@ package response
 const (
 	CODE_SUCCESS = iota
 
-	CODE_SYSTEM_ERROR = -(iota + 999)
+	CODE_SYSTEM_ERROR = -(iota + 9999)
 	CODE_NO_API
 	CODE_LOGIN_FAILED
 	CODE_MISSING_PARAMS
@@ -13,6 +13,7 @@ const (
 	CODE_PASSWORD_INCORRECT
 	CODE_USER_EXISTS
 	CODE_STRONG_PASSWORD_REQUIRED
+	CODE_UPLOAD_FAILED
 )
 
 const (
@@ -28,4 +29,5 @@ const (
 	MSG_PASSWORD_INCORRECT       = "Password incorrect."
 	MSG_USER_EXISTS              = "User exists."
 	MSG_STRONG_PASSWORD_REQUIRED = "Strong password required."
+	MSG_UPLOAD_FAILED            = "Upload failed."
 )

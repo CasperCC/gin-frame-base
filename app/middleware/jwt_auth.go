@@ -5,6 +5,7 @@ import (
 	"gin-frame-base/app/response"
 	"gin-frame-base/internal/global"
 	jwtUtil "gin-frame-base/internal/jwt"
+	"gin-frame-base/internal/tool/sqids_tool"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
 	"strconv"
@@ -58,8 +59,10 @@ func JwtAuth(c *gin.Context) {
 		c.Header("new_expires_in", strconv.Itoa(newToken.ExpiresIn))
 	}
 
+	userId, _ := strconv.Atoi(claims.ID)
 	c.Set("jwt_token", token)
-	c.Set("user_id", claims.ID)
+	c.Set("user_id", uint(userId))
+	c.Set("user_code", sqids_tool.UserIdEncode(uint(userId)))
 
 	c.Next()
 }
